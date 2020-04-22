@@ -27,11 +27,10 @@ class BooksApp extends React.Component {
   }
 
   updateBook = (book, newShelf) => {
-    console.log("Book to update", book)
-    console.log('Books Before update', this.state.books)
-
     this.setState((previousState) => {
       console.log("Books in State", previousState.books)
+
+      /*
       const indexOfBook = previousState.books.indexOf((bookInBooks) => {
         console.log("bookInBooks", bookInBooks)
         return bookInBooks.title === book.title
@@ -43,8 +42,10 @@ class BooksApp extends React.Component {
 
       const bookInList = previousState.books.find((bookInBooks) => bookInBooks.title === book.title)
       console.log("book By find",bookInList)
+      */
+      book.shelf = newShelf
 
-      bookInList.shelf = newShelf
+      return [...previousState.books, book]
     })
 
     console.log('Books After update', this.state.books)

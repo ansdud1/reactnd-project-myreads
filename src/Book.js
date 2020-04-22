@@ -17,8 +17,6 @@ class Book extends Component {
 
         if(moveTo ==='none') {
             console.log("none.")
-        }else if( book.shelf === moveTo ) {
-            console.log("same book shelf, no update")
         }
         else {
             console.log("BookShelf", book.shelf)
@@ -31,7 +29,6 @@ class Book extends Component {
     }
 
     render() {
-        console.log("Props", this.props)
         const { book} =  this.props
 
         return <li>
@@ -40,7 +37,7 @@ class Book extends Component {
                     <div className="book-cover" style={
                              {width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}
                         }></div>
-                    <BookShelfChanger handleChange={this.handleChange} />
+                    <BookShelfChanger handleChange={this.handleChange} shelf={this.props.book.shelf} />
                 </div>
                 <div className="book-title">{book.title}</div>
                 <div className="book-authors">{book.author}</div>
