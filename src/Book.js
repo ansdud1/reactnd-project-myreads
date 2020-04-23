@@ -12,15 +12,9 @@ class Book extends Component {
     handleChange = moveTo => {
         const book = this.props.book; 
 
-        console.log('HandleChange book', book)
         console.log('HandleChange moveTo', moveTo)
 
-        if(moveTo ==='none') {
-            console.log("none.")
-        }
-        else {
-            console.log("BookShelf", book.shelf)
-
+        if(book.shelf !== moveTo){
             this.props.onUpdateBook(
                 book, 
                 moveTo

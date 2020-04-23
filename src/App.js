@@ -1,7 +1,9 @@
 import React from 'react'
+import { Link, Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import ListBooks from './ListBooks'
+import SearchBook from './SearchBook'
 
 
 class BooksApp extends React.Component {
@@ -27,36 +29,38 @@ class BooksApp extends React.Component {
   }
 
   updateBook = (book, newShelf) => {
-    this.setState((previousState) => {
-      console.log("Books in State", previousState.books)
 
-      /*
-      const indexOfBook = previousState.books.indexOf((bookInBooks) => {
-        console.log("bookInBooks", bookInBooks)
-        return bookInBooks.title === book.title
-      })
-      console.log('IndexOfBook', indexOfBook)
-      if(indexOfBook > -1){
-        previousState.books[indexOfBook].shelf = newShelf
-      }
+    BooksAPI.update(book, newShelf)
+      .then(updateReturn => console.log(updateReturn))
 
-      const bookInList = previousState.books.find((bookInBooks) => bookInBooks.title === book.title)
-      console.log("book By find",bookInList)
-      */
-      book.shelf = newShelf
-
-      return [...previousState.books, book]
-    })
-
-    console.log('Books After update', this.state.books)
+    book.shelf = newShelf
+    this.setState( previousState => ({
+      books:[...previousState.books.filter(bookInList => bookInList.id !== book.id), book]
+    }))
   }
 
   render() {
    
     return (
       <div className="app">
-        <ListBooks books={this.state.books} 
-                    onUpdateBook={this.updateBook} />
+        <Route exact path="/"
+          render={()=> (
+            <ListBooks books={this.state.books} 
+                onUpdateBook={this.updateBook} />
+          )} 
+        />
+
+        <Route path="/search"
+          render={()=> (
+            <SearchBook onUpdateBook={this.updateBook}/>
+          )}
+        />
+        
+        <div className="open-search">
+        <Link to="/search">
+          <button>Add a book</button>
+        </Link>
+        </div>
       </div>
     )
   }

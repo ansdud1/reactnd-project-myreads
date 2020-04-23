@@ -14,7 +14,7 @@ class BookShelf extends Component {
                 <ol className="books-grid">
                     {books.filter(book => book.shelf === shelf.key).map(
                         book => (
-                            <Book key={book.title} book = {book}
+                            <Book key={book.id} book = {book}
                             onUpdateBook ={onUpdateBook} />
                         )
                     )}
